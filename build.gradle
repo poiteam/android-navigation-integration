@@ -12,7 +12,28 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        maven {
+            url "https://jitpack.io"
+            credentials { username =properties.getProperty('jitpackToken')  }
+        }
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = 'mapbox'
+                password = properties.getProperty('MAP_BOX_TOKEN')
+            }
+        }
+    }
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
