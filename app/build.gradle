@@ -54,7 +54,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
-    implementation 'org.bitbucket.poiteam:android-navigation-sdk:v2.8.6'
+    implementation 'org.bitbucket.poiteam:android-navigation-sdk:v2.8.17'
     def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
     testImplementation 'junit:junit:4.+'
