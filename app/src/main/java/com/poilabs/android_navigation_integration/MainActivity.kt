@@ -105,8 +105,10 @@ class MainActivity : AppCompatActivity(), PoiNavigation.OnNavigationReady {
     }
 
     override fun onStoresReady() {
-        PoiNavigation.getInstance().navigateToStore("")
-        PoiNavigation.getInstance().showPointsOnMap(listOf<String>())
+        runOnUiThread {
+            PoiNavigation.getInstance().navigateToStore("")
+            PoiNavigation.getInstance().showPointsOnMap(listOf<String>())
+        }
     }
 
 }
