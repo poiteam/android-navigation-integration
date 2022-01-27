@@ -4,9 +4,11 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.os.postDelayed
 import com.poilabs.navigation.model.PoiNavigation
 import com.poilabs.navigation.model.PoiSdkConfig
 import com.poilabs.navigation.view.fragments.MapFragment
@@ -109,6 +111,11 @@ class MainActivity : AppCompatActivity(), PoiNavigation.OnNavigationReady {
             PoiNavigation.getInstance().navigateToStore("")
             PoiNavigation.getInstance().showPointsOnMap(listOf<String>())
         }
+    }
+
+    override fun onError(p0: Throwable?) {
+        p0?.printStackTrace()
+
     }
 
 }
