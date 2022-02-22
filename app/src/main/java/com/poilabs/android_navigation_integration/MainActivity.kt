@@ -6,12 +6,14 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.os.postDelayed
 import com.poilabs.navigation.model.PoiNavigation
 import com.poilabs.navigation.model.PoiSdkConfig
 import com.poilabs.navigation.view.fragments.MapFragment
+import com.poilabs.poilabspositioning.model.PLPStatus
 import java.util.*
 
 class MainActivity : AppCompatActivity(), PoiNavigation.OnNavigationReady {
@@ -82,6 +84,7 @@ class MainActivity : AppCompatActivity(), PoiNavigation.OnNavigationReady {
     }
 
     private fun startPoiSDK() {
+        PoiNavigation.getInstance().clearResources()
         var localeLanguage = "tr"
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             localeLanguage = Locale.forLanguageTag(Locale.getDefault().language).toString()
@@ -116,6 +119,10 @@ class MainActivity : AppCompatActivity(), PoiNavigation.OnNavigationReady {
     override fun onError(p0: Throwable?) {
         p0?.printStackTrace()
 
+    }
+
+    override fun onStatusChanged(p0: PLPStatus?) {
+        Toast.makeText(this, p0?.toString(), Toast.LENGTH_SHORT).show()
     }
 
 }
