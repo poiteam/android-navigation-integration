@@ -32,6 +32,7 @@ allprojects {
                 password = properties.getProperty('MAP_BOX_TOKEN')
             }
         }
+        maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local/' }
     }
 }
 task clean(type: Delete) {
