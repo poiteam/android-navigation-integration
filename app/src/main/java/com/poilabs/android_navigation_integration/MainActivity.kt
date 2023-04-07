@@ -12,11 +12,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.os.postDelayed
 import com.poilabs.navigation.model.PoiNavigation
 import com.poilabs.navigation.model.PoiSdkConfig
+import com.poilabs.navigation.model.beaconutil.PoiLocationCallback
 import com.poilabs.navigation.view.fragments.MapFragment
 import com.poilabs.poilabspositioning.model.PLPStatus
 import java.util.*
 
-class MainActivity : AppCompatActivity(), PoiNavigation.OnNavigationReady {
+class MainActivity : AppCompatActivity(), PoiNavigation.OnNavigationReady, PoiLocationCallback {
 
     companion object {
         const val TAG = "MainActivity"
@@ -40,6 +41,8 @@ class MainActivity : AppCompatActivity(), PoiNavigation.OnNavigationReady {
             localeLanguage,
             poiSdkConfig
         ).bind(this)
+
+        PoiNavigation.getInstance().addLocationListener(application, this)
     }
 
     private fun getUniqueId(): String {
@@ -53,7 +56,6 @@ class MainActivity : AppCompatActivity(), PoiNavigation.OnNavigationReady {
     override fun onStoresReady() {
         Log.i(TAG, "onStoresReady: ")
         runOnUiThread {
-            PoiNavigation.getInstance().navigateToStore("")
             PoiNavigation.getInstance().showPointsOnMap(listOf<String>())
         }
     }
@@ -67,8 +69,14 @@ class MainActivity : AppCompatActivity(), PoiNavigation.OnNavigationReady {
         Log.i(TAG, "onStatusChanged: $p0")
     }
 
-    override fun onLocation(latitude: Double?, longitude: Double?, floor: Int?) {
-        Log.i(TAG, "onLocation: $latitude,$longitude,$floor")
+    override fun onReadyForRouting() {
+        runOnUiThread {
+            PoiNavigation.getInstance().navigateToStore("")
+        }
+    }
+
+    override fun onLocation(latitude: Double, longitude: Double, floor: Int, floorName: String) {
+
     }
 
 }
